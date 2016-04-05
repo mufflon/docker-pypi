@@ -6,4 +6,5 @@ RUN pacman -Sy --noconfirm --needed python-pip python-passlib && pip install -U 
 EXPOSE 8000
 VOLUME ["/srv/pypi"]
 
-CMD ["pypi-server", "-p", "8000", "-P", "/srv/pypi/.htaccess", "/srv/pypi"]
+ADD run.sh /
+CMD ["./run.sh"]
