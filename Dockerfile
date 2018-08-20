@@ -1,8 +1,10 @@
-FROM codekoala/saltyarch
-MAINTAINER Craig Weber <crgwbr@gmail.com>
+FROM python:3.7-stretch
 
-ENV PYPISERVER_VERSION='1.2.0'
-RUN pacman -Sy --noconfirm --needed python-pip python-passlib && pip install -U pypiserver[cache]==$PYPISERVER_VERSION && mkdir -p /srv/pypi && rm -rf /var/cache/pacman/*
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
+RUN pip install passlib && pip install pypiserver && mkdir -p /srv/pypi
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssh-server \
