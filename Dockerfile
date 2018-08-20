@@ -9,6 +9,7 @@ RUN pip install passlib && pip install pypiserver && mkdir -p /srv/pypi
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssh-server \
     && echo "root:Docker!" | chpasswd
+
 COPY sshd_config /etc/ssh/
 EXPOSE 2222 8080
 
