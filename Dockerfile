@@ -7,13 +7,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 RUN pip install passlib && pip install pypiserver && mkdir -p /srv/pypi
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends openssh-server \
+    && apt-get install -y openssh-server \
     && echo "root:Docker!" | chpasswd
 
-COPY sshd_config /etc/ssh/
-EXPOSE 2222 8080
+RUN mkdir /run/sshd
 
-EXPOSE 8000
+COPY sshd_config /etc/ssh/
+RUN chmod a-w /etc/ssh/sshd_config
+EXPOSE 2222 8000 8080
 
 VOLUME ["/srv/pypi"]
 
